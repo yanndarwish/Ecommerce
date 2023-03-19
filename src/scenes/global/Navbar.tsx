@@ -6,7 +6,7 @@ import {
 	MenuOutlined,
 	SearchOutlined,
 } from "@mui/icons-material"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { shades, useMode } from "../../theme"
 
 export interface INavbarProps {}
