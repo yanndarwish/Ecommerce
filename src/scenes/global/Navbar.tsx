@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { Badge, Box, IconButton, Typography } from "@mui/material"
 import {
 	PersonOutline,
@@ -8,15 +8,17 @@ import {
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import { shades, useMode } from "../../theme"
+import { setIsCartOpen } from "../../state"
 
 export interface INavbarProps {}
 
 const Navbar = (props: INavbarProps) => {
 	const [theme, colorMode] = useMode()
 	const colors = shades(theme.palette.mode)
+	const cart = useAppSelector((state) => state.cart.cart)
 
 	const navigate = useNavigate()
-	// const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	return (
 		<Box
@@ -40,7 +42,7 @@ const Navbar = (props: INavbarProps) => {
 			>
 				<Box
 					onClick={() => navigate("/")}
-					color={colors.secondary[500]}
+					color={colors.primary[500]}
 					sx={{
 						"&:hover": { cursor: "pointer" },
 					}}
@@ -59,9 +61,27 @@ const Navbar = (props: INavbarProps) => {
 					<IconButton sx={{ color: "black" }}>
 						<PersonOutline />
 					</IconButton>
-					<IconButton sx={{ color: "black" }}>
-						<ShoppingBagOutlined />
-					</IconButton>
+					<Badge
+						badgeContent={cart.length}
+						color="secondary"
+						invisible={cart.length === 0}
+						sx={{
+							"& .MuiBadge-badge": {
+								right: 5,
+								top: 5,
+								padding: "0 4px",
+								height: "14px",
+								minWidth: "13px",
+							},
+						}}
+					>
+						<IconButton
+							sx={{ color: "black" }}
+							onClick={() => dispatch(setIsCartOpen())}
+						>
+							<ShoppingBagOutlined />
+						</IconButton>
+					</Badge>
 					<IconButton sx={{ color: "black" }}>
 						<MenuOutlined />
 					</IconButton>

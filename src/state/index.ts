@@ -48,8 +48,8 @@ export const cartSlice = createSlice({
 		setItems: (state, action: PayloadAction<Item[]>) => {
 			state.items = action.payload
 		},
-		addToCart: (state, action: PayloadAction<{ item: CartItem }>) => {
-			state.cart = [...state.cart, action.payload.item]
+		addToCart: (state, action: PayloadAction<{ item: Item }>) => {
+			state.cart = [...state.cart, { ...action.payload.item, count: 1 }]
 		},
 		removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
 			state.cart = state.cart.filter((item) => item.id !== action.payload.id)
