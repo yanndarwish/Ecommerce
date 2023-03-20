@@ -21,15 +21,13 @@ import {
 	setIsCartOpen,
 } from "../../state/productsSlice"
 
-export interface ICartMenuProps {}
-
 const FlexBox = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 `
 
-const CartMenu = (props: ICartMenuProps) => {
+const CartMenu = () => {
 	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
 	const dispatch = useAppDispatch()
