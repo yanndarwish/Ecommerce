@@ -1,21 +1,23 @@
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
-import { Badge, Box, IconButton, Typography } from "@mui/material"
+import { Badge, Box, IconButton, Typography, useTheme } from "@mui/material"
+import { useContext } from "react"
 import {
 	PersonOutline,
 	ShoppingBagOutlined,
 	MenuOutlined,
 	SearchOutlined,
 } from "@mui/icons-material"
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
 import { useNavigate } from "react-router-dom"
-import { shades, useMode } from "../../theme"
-import { setIsCartOpen } from "../../state"
+import { ColorModeContext, shades } from "../../theme"
+import { setIsCartOpen } from "../../state/productsSlice"
 
-export interface INavbarProps {}
-
-const Navbar = (props: INavbarProps) => {
-	const [theme, colorMode] = useMode()
+const Navbar = () => {
+	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
-	const cart = useAppSelector((state) => state.cart.cart)
+	const colorMode = useContext(ColorModeContext)
+	const cart = useAppSelector((state) => state.productsSlice.cart)
 
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
@@ -30,7 +32,9 @@ const Navbar = (props: INavbarProps) => {
 			alignItems="center"
 			width="100%"
 			height="60px"
-			sx={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}
+			sx={{
+				background: `linear-gradient(to right bottom, ${colors.secondary[900]}, ${colors.secondary[700]})`,
+			}}
 			color="black"
 		>
 			<Box
@@ -42,12 +46,14 @@ const Navbar = (props: INavbarProps) => {
 			>
 				<Box
 					onClick={() => navigate("/")}
-					color={colors.primary[500]}
+					color={colors.secondary[100]}
 					sx={{
 						"&:hover": { cursor: "pointer" },
 					}}
 				>
-					<Typography variant="h3">Ecommerce</Typography>
+					<Typography variant="h3" fontWeight="600">
+						Ecommerce
+					</Typography>
 				</Box>
 				<Box
 					display="flex"
@@ -55,11 +61,18 @@ const Navbar = (props: INavbarProps) => {
 					gap="20px"
 					zIndex="2"
 				>
-					<IconButton sx={{ color: "black" }}>
+					<IconButton sx={{ color: colors.secondary[100] }}>
 						<SearchOutlined />
 					</IconButton>
-					<IconButton sx={{ color: "black" }}>
-						<PersonOutline />
+					<IconButton
+						sx={{ color: colors.secondary[100] }}
+						onClick={colorMode.toggleColorMode}
+					>
+						{theme.palette.mode === "dark" ? (
+							<DarkModeOutlinedIcon />
+						) : (
+							<LightModeOutlinedIcon />
+						)}
 					</IconButton>
 					<Badge
 						badgeContent={cart.length}
@@ -76,13 +89,13 @@ const Navbar = (props: INavbarProps) => {
 						}}
 					>
 						<IconButton
-							sx={{ color: "black" }}
+							sx={{ color: colors.secondary[100] }}
 							onClick={() => dispatch(setIsCartOpen())}
 						>
 							<ShoppingBagOutlined />
 						</IconButton>
 					</Badge>
-					<IconButton sx={{ color: "black" }}>
+					<IconButton sx={{ color: colors.secondary[100] }}>
 						<MenuOutlined />
 					</IconButton>
 				</Box>
