@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { productsApi } from "./productsApi"
 
-interface Item {
+export interface Item {
 	id: number
 	title: string
 	description: string
@@ -41,8 +42,8 @@ const initialState: CartState = {
 	items: [],
 }
 
-export const cartSlice = createSlice({
-	name: "cart",
+export const productsSlice = createSlice({
+	name: "products",
 	initialState,
 	reducers: {
 		setItems: (state, action: PayloadAction<Item[]>) => {
@@ -74,6 +75,14 @@ export const cartSlice = createSlice({
 			state.isCartOpen = !state.isCartOpen
 		},
 	},
+	extraReducers(builder) {
+		builder.addMatcher(
+			productsApi.endpoints.getProducts.matchFulfilled,
+			(state, action) => {
+				state.items = action.payload.products
+			}
+		)
+	},
 })
 
 export const {
@@ -83,5 +92,5 @@ export const {
 	increaseCount,
 	decreaseCount,
 	setIsCartOpen,
-} = cartSlice.actions
-export default cartSlice.reducer
+} = productsSlice.actions
+export default productsSlice.reducer

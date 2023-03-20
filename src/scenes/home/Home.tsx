@@ -1,14 +1,10 @@
-export interface IHomeProps {
+import { useAppSelector } from "../../state/hooks"
 
-}
+const Home = () => {
+    const products = useAppSelector(state => state.productsSlice.items)
+    console.log(products)
 
-const Home = (props: IHomeProps) => {
-
-    return (
-        <div>
-            Home
-        </div>
-    )
+	return <div>Home</div>
 }
 
 export default Home
