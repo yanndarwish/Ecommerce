@@ -39,6 +39,9 @@ export const shades = (mode: PaletteMode) => ({
 					800: "#535252",
 					900: "#292929",
 				},
+				overlay: {
+					100: "rgb(245, 245, 245, 0.4)",
+				},
 		  }
 		: {
 				primary: {
@@ -74,6 +77,9 @@ export const shades = (mode: PaletteMode) => ({
 					300: "#7c7b7b",
 					200: "#535252",
 					100: "#292929",
+				},
+				overlay: {
+					100: "rgb(23, 23, 23, 0.4)",
 				},
 		  }),
 })
