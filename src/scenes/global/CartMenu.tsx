@@ -135,8 +135,8 @@ const CartMenu = () => {
 						</FlexBox>
 						<Button
 							sx={{
-								background: `linear-gradient(to right bottom, ${colors.secondary[900]}, ${colors.secondary[700]})`,
-								color: colors.secondary[100],
+								backgroundColor: colors.secondary[500],
+								color: "white",
                                 fontWeight: "bold",
 								minWidth: "100%",
 								padding: "20px 40px",

@@ -10,7 +10,7 @@ import { Item } from "../state/productsSlice"
 
 export interface IItemProps {
 	item: Item
-	width: string
+	width?: string
 }
 
 const Item = (props: IItemProps) => {
@@ -24,19 +24,34 @@ const Item = (props: IItemProps) => {
 	const { category, price, title, thumbnail } = props.item
 
 	return (
-		<Box width={props.width}>
+		<Box
+			width={props.width}
+			border={`1px solid ${colors.secondary[700]}`}
+			borderRadius="12px"
+			padding="8px"
+			overflow="hidden"
+			sx={{
+				backgroundColor: colors.secondary[900],
+			}}
+		>
 			<Box
 				position="relative"
 				onMouseOver={() => setIsHovered(true)}
 				onMouseOut={() => setIsHovered(false)}
+				overflow="hidden"
 			>
 				<img
-					src={thumbnail}
+					src={props.item.images[0]}
 					alt={title}
-					width="300px"
-					height="400px"
+					width="100%"
+					height="250px"
 					onClick={() => navigate(`/item/${props.item.id}`)}
-					style={{ cursor: "pointer" }}
+					style={{
+						cursor: "pointer",
+						objectFit: "cover",
+						objectPosition: "center",
+						borderRadius: "8px",
+					}}
 				/>
 				<Box
 					display={isHovered ? "block" : "none"}
@@ -44,7 +59,7 @@ const Item = (props: IItemProps) => {
 					bottom="10%"
 					left="0"
 					width="100%"
-					padding="0 5px"
+					padding="0 5%"
 				>
 					<Box display="flex" justifyContent="space-between">
 						{/* ITEM QUANTITY */}
@@ -53,7 +68,7 @@ const Item = (props: IItemProps) => {
 							alignItems="center"
 							borderRadius="3px"
 							sx={{
-								background: `linear-gradient(to right bottom, ${colors.secondary[300]}, ${colors.secondary[800]})`,
+								backgroundColor: colors.secondary[800],
 							}}
 						>
 							<IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
@@ -70,8 +85,13 @@ const Item = (props: IItemProps) => {
 								dispatch(addToCart({ item: { ...props.item, count } }))
 							}
 							sx={{
-								color: "white",
-								background: `linear-gradient(to right bottom, ${colors.secondary[900]}, ${colors.secondary[700]})`,
+								fontWeight: "600",
+								color: colors.primary[300],
+								backgroundColor: colors.secondary[800],
+								"&:hover": {
+									backgroundColor: colors.secondary[300],
+									color: colors.primary[800],
+								},
 							}}
 						>
 							Add to Cart
