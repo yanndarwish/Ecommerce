@@ -54,8 +54,12 @@ const Footer = () => {
 					<Typography variant="h4" fontWeight="bold" mb="30px">
 						Contact Us
 					</Typography>
-					<Typography mb="30px">50 north Whatever Blvd, Washington, DC 10501</Typography>
-					<Typography mb="30px">Email: something@gmail.com</Typography>
+					<Typography mb="30px">
+						50 north Whatever Blvd, Washington, DC 10501
+					</Typography>
+					<Typography mb="30px" sx={{ wordWrap: "break-word" }}>
+						Email: something@gmail.com
+					</Typography>
 					<Typography mb="30px">0123456789</Typography>
 				</Box>
 			</Box>

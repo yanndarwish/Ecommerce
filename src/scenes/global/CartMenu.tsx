@@ -13,7 +13,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import styled from "@emotion/styled"
 import { shades } from "../../theme"
 import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import {
 	decreaseCount,
 	increaseCount,
@@ -34,15 +34,23 @@ const CartMenu = () => {
 	const navigate = useNavigate()
 	const cart = useAppSelector((state) => state.productsSlice.cart)
 	const isCartOpen = useAppSelector((state) => state.productsSlice.isCartOpen)
+	const overlayRef = useRef()
 
 	const totalPrice = cart.reduce((total, item) => {
 		return total + item.count * item.price
 	}, 0)
+
+	const closeCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		if (e.target === overlayRef.current) {
+			dispatch(setIsCartOpen())
+		}
+	}
 	return (
 		<Box //OVERLAY
+			ref={overlayRef}
 			display={isCartOpen ? "block" : "none"}
 			position="fixed"
-			zIndex={10}
+			zIndex={99}
 			width="100%"
 			height="100%"
 			left="0"
@@ -51,13 +59,14 @@ const CartMenu = () => {
 			sx={{
 				backgroundColor: colors.overlay[100],
 			}}
+			onClick={(e) => closeCart(e)}
 		>
 			{/* CART MODAL */}
 			<Box
 				position="fixed"
 				right="0"
 				bottom="0"
-				width="max(400px, 30%)"
+				width="min(450px, 100%)"
 				height="100%"
 				sx={{ backgroundColor: colors.primary[900] }}
 			>
@@ -80,6 +89,7 @@ const CartMenu = () => {
 											alt={item?.title}
 											width="123px"
 											height="164px"
+											style={{ objectFit: "cover" }}
 										/>
 									</Box>
 									<Box flex="1 1 60%">
@@ -135,12 +145,18 @@ const CartMenu = () => {
 						</FlexBox>
 						<Button
 							sx={{
-								backgroundColor: colors.secondary[500],
+								backgroundColor:
+									theme.palette.mode === "dark"
+										? colors.secondary[800]
+										: colors.secondary[200],
 								color: "white",
-                                fontWeight: "bold",
+								fontWeight: "bold",
 								minWidth: "100%",
 								padding: "20px 40px",
 								m: "20px 0",
+								"&:hover": {
+									backgroundColor: colors.secondary[500],
+								},
 							}}
 							onClick={() => {
 								navigate("/checkout")

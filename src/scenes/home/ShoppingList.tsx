@@ -8,14 +8,11 @@ import {
 	useMediaQuery,
 } from "@mui/material"
 import Item from "../../components/Item"
-import { useAppSelector, useAppDispatch } from "../../state/hooks"
-import { shades } from "../../theme"
-import { setItems } from "../../state/productsSlice"
+import { useAppSelector } from "../../state/hooks"
 
 export interface IShoppingListProps {}
 
 const ShoppingList = (props: IShoppingListProps) => {
-	const dispatch = useAppDispatch()
 	const [value, setValue] = useState("all")
 	const items = useAppSelector((state) => state.productsSlice.items)
 	const isNonMobile = useMediaQuery("(min-width: 600px)")
@@ -72,8 +69,8 @@ const ShoppingList = (props: IShoppingListProps) => {
 				}}
 			>
 				<Tab label="ALL" value="all" />
-				<Tab label="TECH" value="tech" />
 				<Tab label="HOME" value="home" />
+				<Tab label="TECH" value="tech" />
 				<Tab label="ACCESSORIES" value="accessories" />
 			</Tabs>
 			<Box

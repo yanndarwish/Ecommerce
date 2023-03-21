@@ -2,10 +2,8 @@ import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { Badge, Box, IconButton, Typography, useTheme } from "@mui/material"
 import { useContext } from "react"
 import {
-	PersonOutline,
 	ShoppingBagOutlined,
 	MenuOutlined,
-	SearchOutlined,
 } from "@mui/icons-material"
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
@@ -33,7 +31,8 @@ const Navbar = () => {
 			width="100%"
 			height="60px"
 			sx={{
-				backgroundColor: colors.secondary[900]
+				backgroundColor:
+					theme.palette.mode === "dark" ? colors.primary[800] : "black",
 			}}
 			color="black"
 		>
@@ -46,7 +45,7 @@ const Navbar = () => {
 			>
 				<Box
 					onClick={() => navigate("/")}
-					color={colors.secondary[100]}
+					color="white"
 					sx={{
 						"&:hover": { cursor: "pointer" },
 					}}
@@ -61,11 +60,8 @@ const Navbar = () => {
 					gap="20px"
 					zIndex="2"
 				>
-					<IconButton sx={{ color: colors.secondary[100] }}>
-						<SearchOutlined />
-					</IconButton>
 					<IconButton
-						sx={{ color: colors.secondary[100] }}
+						sx={{ color: "white" }}
 						onClick={colorMode.toggleColorMode}
 					>
 						{theme.palette.mode === "dark" ? (
@@ -89,13 +85,13 @@ const Navbar = () => {
 						}}
 					>
 						<IconButton
-							sx={{ color: colors.secondary[100] }}
+							sx={{ color: "white" }}
 							onClick={() => dispatch(setIsCartOpen())}
 						>
 							<ShoppingBagOutlined />
 						</IconButton>
 					</Badge>
-					<IconButton sx={{ color: colors.secondary[100] }}>
+					<IconButton sx={{ color: "white" }}>
 						<MenuOutlined />
 					</IconButton>
 				</Box>
