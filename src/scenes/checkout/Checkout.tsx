@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../state/hooks"
+import { useNavigate } from "react-router-dom"
 import { Box, useTheme, Button, Stepper, Step, StepLabel } from "@mui/material"
 import { Formik } from "formik"
 import { useState } from "react"
@@ -122,6 +123,7 @@ const checkoutSchema = [
 ]
 
 const Checkout = () => {
+    const navigate = useNavigate()
 	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
 	const [activeStep, setActiveStep] = useState(0)
@@ -151,6 +153,7 @@ const Checkout = () => {
 		// stripe checkout logic
 
         console.log(cart)
+        navigate('/checkout/success')
 	}
 
 	return (
