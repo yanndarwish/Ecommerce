@@ -1,10 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { Badge, Box, IconButton, Typography, useTheme } from "@mui/material"
 import { useContext } from "react"
-import {
-	ShoppingBagOutlined,
-	MenuOutlined,
-} from "@mui/icons-material"
+import { ShoppingBagOutlined, MenuOutlined } from "@mui/icons-material"
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
 import { useNavigate } from "react-router-dom"
@@ -22,6 +19,7 @@ const Navbar = () => {
 
 	return (
 		<Box
+			className="appear"
 			position="fixed"
 			top="0"
 			left="0"

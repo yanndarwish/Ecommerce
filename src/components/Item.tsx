@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useAppDispatch } from "../state/hooks"
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material"
 import { shades } from "../theme"
@@ -18,12 +18,14 @@ export interface IItemProps {
 }
 
 const Item = (props: IItemProps) => {
+	const ref = useRef<HTMLDivElement | null>(null)
 	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const [count, setCount] = useState(1)
 	const [isHovered, setIsHovered] = useState(false)
+	const [isVisible, setIsVisible] = useState(false)
 	// custom picture because bad quality on the default ones
 	const item = {
 		...props.item,
@@ -50,8 +52,28 @@ const Item = (props: IItemProps) => {
 	}
 	const { category, price, title } = props.item
 
+	useEffect(() => {
+		if (ref.current) {
+			const observer = new IntersectionObserver((entries) => {
+				const entry = entries[0]
+				setIsVisible(entry.isIntersecting)
+			})
+			observer.observe(ref.current)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (ref.current) {
+			if (isVisible) {
+				ref.current.classList.add("appearUp")
+			} else {
+				ref.current.classList.remove("appearUp")
+			}
+		}
+	}, [isVisible])
+
 	return (
-		<Box width={props.width} padding="8px" overflow="hidden">
+		<Box ref={ref} width={props.width} padding="8px" overflow="hidden" sx={{opacity:"0"}}>
 			<Box
 				position="relative"
 				onMouseOver={() => setIsHovered(true)}
@@ -111,9 +133,7 @@ const Item = (props: IItemProps) => {
 						</Box>
 						{/* BUTTON  */}
 						<Button
-							onClick={() =>
-								dispatch(addToCart({ item: { ...item, count } }))
-							}
+							onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
 							sx={{
 								fontWeight: "600",
 								color: "white",

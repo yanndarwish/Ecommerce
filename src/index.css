@@ -1,14 +1,108 @@
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&family=Maven+Pro:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap");
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  margin:0;
-  padding:0;
+	margin: 0;
+	padding: 0;
 }
 
 .app {
-  margin:auto;
+	margin: auto;
+}
+
+.appearUp {
+	animation: appearUp 1s ease-in-out both;
+	-webkit-animation: appearUp 1s ease-in-out both;
+}
+
+.appearLeft {
+	animation: appearLeft 1s ease-in-out both;
+	-webkit-animation: appearLeft 1s ease-in-out both;
+	animation-delay: 0.3s;
+}
+
+.appear {
+	animation: appear 1s ease-in-out forwards;
+	-webkit-animation: appear 1s ease-in-out forwards;
+}
+
+@keyframes appearUp {
+	0% {
+		opacity: 0;
+		transform: translateY(20%);
+		-webkit-transform: translateY(20%);
+		-moz-transform: translateY(20%);
+		-ms-transform: translateY(20%);
+		-o-transform: translateY(20%);
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+		-webkit-transform: translateY(0);
+		-moz-transform: translateY(0);
+		-ms-transform: translateY(0);
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes appearLeft {
+	0% {
+		opacity: 0;
+		transform: translate(20%, -50%);
+		-webkit-transform: translate(20%, -50%);
+		-moz-transform: translate(20%, -50%);
+		-ms-transform: translate(20%, -50%);
+		-o-transform: translate(20%, -50%);
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0, -50%);
+		-webkit-transform: translate(0, -50%);
+		-moz-transform: translate(0, -50%);
+		-ms-transform: translate(0, -50%);
+		-o-transform: translate(0, -50%);
+	}
+}
+
+@keyframes appear {
+	0% {
+		opacity: 0;
+		transform: translateY(-100%);
+		-webkit-transform: translateY(-100%);
+		-moz-transform: translateY(-100%);
+		-ms-transform: translateY(-100%);
+		-o-transform: translateY(-100%);
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+		-webkit-transform: translateY(0);
+		-moz-transform: translateY(0);
+		-ms-transform: translateY(0);
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	60% {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
