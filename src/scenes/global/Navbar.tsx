@@ -33,7 +33,7 @@ const Navbar = () => {
 			width="100%"
 			height="60px"
 			sx={{
-				background: `linear-gradient(to right bottom, ${colors.secondary[900]}, ${colors.secondary[700]})`,
+				backgroundColor: colors.secondary[900]
 			}}
 			color="black"
 		>
