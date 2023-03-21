@@ -50,7 +50,9 @@ export const productsSlice = createSlice({
 			state.items = action.payload
 		},
 		addToCart: (state, action: PayloadAction<{ item: CartItem }>) => {
-			state.cart = [...state.cart, action.payload.item]
+			if (action.payload.item !== undefined) {
+				state.cart = [...state.cart, action.payload.item]
+			}
 		},
 		removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
 			state.cart = state.cart.filter((item) => item.id !== action.payload.id)

@@ -8,6 +8,7 @@ interface ApiResponse {
 	products: Item[]
 }
 
+
 export const productsApi = createApi({
 	reducerPath: "productsApi",
 	baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/" }),
@@ -17,7 +18,17 @@ export const productsApi = createApi({
 				url: "/products",
 			}),
 		}),
+		getProduct: builder.query<Item, string | undefined>({
+			query: (id) => ({
+				url: `/products/${id}`,
+			}),
+		}),
+		getRelatedProducts: builder.query<ApiResponse, string | undefined>({
+			query: (category) => ({
+				url: `/products/category/${category}`,
+			}),
+		}),
 	}),
 })
 //  limit: number; skip: number; total: number; products: Item[]
-export const { useGetProductsQuery } = productsApi
+export const { useGetProductsQuery, useGetProductQuery, useGetRelatedProductsQuery } = productsApi
