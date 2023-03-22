@@ -1,61 +1,44 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { productsApi } from "./productsApi"
-
-export interface Item {
-	id: number
-	title: string
-	description: string
-	price: number
-	discountPercentage: number
-	rating: number
-	stock: number
-	brand: string
-	category: string
-	thumbnail: string
-	images: string[]
-}
+const localCart = localStorage.getItem("cartProducts")
 
 interface CartItem {
 	id: number
-	title: string
-	description: string
-	price: number
-	discountPercentage: number
-	rating: number
-	stock: number
-	brand: string
+	name: string
 	category: string
-	thumbnail: string
+	description: string
+	price: string
+	texture: string
+	weight: string
+	size: string
 	images: string[]
 	count: number
 }
 
 interface CartState {
 	isCartOpen: boolean
+	isSideOpen: boolean
 	cart: CartItem[]
-	items: Item[]
 }
 
 const initialState: CartState = {
 	isCartOpen: false,
-	cart: [],
-	items: [],
+	isSideOpen: false,
+	cart: typeof localCart === "string" ? JSON.parse(localCart) : [],
 }
 
 export const productsSlice = createSlice({
 	name: "products",
 	initialState,
 	reducers: {
-		setItems: (state, action: PayloadAction<Item[]>) => {
-			state.items = action.payload
-		},
 		addToCart: (state, action: PayloadAction<{ item: CartItem }>) => {
 			if (action.payload.item !== undefined) {
 				state.cart = [...state.cart, action.payload.item]
+				localStorage.setItem("cartProducts", JSON.stringify(state.cart))
 			}
 		},
 		removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
 			state.cart = state.cart.filter((item) => item.id !== action.payload.id)
+			localStorage.setItem("cartProducts", JSON.stringify(state.cart))
 		},
 		increaseCount: (state, action: PayloadAction<{ id: number }>) => {
 			state.cart = state.cart.map((item) => {
@@ -64,6 +47,7 @@ export const productsSlice = createSlice({
 				}
 				return item
 			})
+			localStorage.setItem("cartProducts", JSON.stringify(state.cart))
 		},
 		decreaseCount: (state, action: PayloadAction<{ id: number }>) => {
 			state.cart = state.cart.map((item) => {
@@ -72,27 +56,23 @@ export const productsSlice = createSlice({
 				}
 				return item
 			})
+			localStorage.setItem("cartProducts", JSON.stringify(state.cart))
 		},
 		setIsCartOpen: (state) => {
 			state.isCartOpen = !state.isCartOpen
 		},
-	},
-	extraReducers(builder) {
-		builder.addMatcher(
-			productsApi.endpoints.getProducts.matchFulfilled,
-			(state, action) => {
-				state.items = action.payload.products
-			}
-		)
+		setIsSideOpen: (state) => {
+			state.isSideOpen = !state.isSideOpen
+		},
 	},
 })
 
 export const {
-	setItems,
 	addToCart,
 	removeFromCart,
 	increaseCount,
 	decreaseCount,
 	setIsCartOpen,
+	setIsSideOpen
 } = productsSlice.actions
 export default productsSlice.reducer

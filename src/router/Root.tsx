@@ -3,6 +3,7 @@ import Navbar from "../scenes/global/Navbar"
 import CartMenu from "../scenes/global/CartMenu"
 import Footer from "../scenes/global/Footer"
 import { useEffect } from "react"
+import Sidebar from "../scenes/global/Sidebar"
 
 export interface IRootProps {}
 
@@ -21,6 +22,7 @@ const Root = (props: IRootProps) => {
 		<>
 			<Navbar />
 			<CartMenu />
+			<Sidebar />
 			<Outlet />
 			<Footer />
 			<ScrollToTop />

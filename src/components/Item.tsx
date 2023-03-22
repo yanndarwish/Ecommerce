@@ -1,23 +1,32 @@
 import { useState, useEffect, useRef } from "react"
-import { useAppDispatch } from "../state/hooks"
+import { useAppDispatch, useAppSelector } from "../state/hooks"
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material"
 import { shades } from "../theme"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
-import { addToCart } from "../state/productsSlice"
+import { addToCart, increaseCount } from "../state/productsSlice"
 import { useNavigate } from "react-router-dom"
-import { Item } from "../state/productsSlice"
-import watch from "../assets/images/watch.png"
-import phone from "../assets/images/iphone.png"
-import chair from "../assets/images/chair.png"
-import cap from "../assets/images/cap.png"
+
+export interface IItem {
+	id: number
+	name: string
+	category: string
+	description: string
+	price: string
+	texture: string
+	weight: string
+	size: string
+	images: string[]
+}
 
 export interface IItemProps {
-	item: Item
+	item: IItem
 	width?: string
+	margin?: string
 }
 
 const Item = (props: IItemProps) => {
+	const cart = useAppSelector((state) => state.productsSlice.cart)
 	const ref = useRef<HTMLDivElement | null>(null)
 	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
@@ -26,31 +35,17 @@ const Item = (props: IItemProps) => {
 	const [count, setCount] = useState(1)
 	const [isHovered, setIsHovered] = useState(false)
 	const [isVisible, setIsVisible] = useState(false)
-	// custom picture because bad quality on the default ones
-	const item = {
-		...props.item,
-		thumbnail:
-			props.item.category === "smartphones" ||
-			props.item.category === "laptops" ||
-			props.item.category === "lighting"
-				? phone
-				: props.item.category === "home-decoration" ||
-				  props.item.category === "furniture" ||
-				  props.item.category === "womens-shoes" ||
-				  props.item.category === "mens-shirts" ||
-				  props.item.category === "mens-shoes"
-				? chair
-				: props.item.category === "womens-watches" ||
-				  props.item.category === "mens-watches" ||
-				  props.item.category === "womens-bags" ||
-				  props.item.category === "womens-jewellery" ||
-				  props.item.category === "sunglasses" ||
-				  props.item.category === "fragrances" ||
-				  props.item.category === "skincare"
-				? watch
-				: cap,
+
+	const handleClick = () => {
+		if (props.item) {
+			// check if already in cart
+			if (cart.some((product) => product.id === props.item.id)) {
+				dispatch(increaseCount({ id: props.item.id }))
+			} else {
+				dispatch(addToCart({ item: { ...props.item, count } }))
+			}
+		}
 	}
-	const { category, price, title } = props.item
 
 	useEffect(() => {
 		if (ref.current) {
@@ -73,7 +68,14 @@ const Item = (props: IItemProps) => {
 	}, [isVisible])
 
 	return (
-		<Box ref={ref} width={props.width} padding="8px" overflow="hidden" sx={{opacity:"0"}}>
+		<Box
+			ref={ref}
+			marginX={props.margin}
+			width={props.width}
+			padding="8px"
+			overflow="hidden"
+			sx={{ opacity: "0" }}
+		>
 			<Box
 				position="relative"
 				onMouseOver={() => setIsHovered(true)}
@@ -81,8 +83,8 @@ const Item = (props: IItemProps) => {
 				overflow="hidden"
 			>
 				<img
-					src={item.thumbnail}
-					alt={title}
+					src={props.item.images[0]}
+					alt={props.item.name}
 					width="100%"
 					height="250px"
 					onClick={() => navigate(`/item/${props.item.id}`)}
@@ -133,7 +135,7 @@ const Item = (props: IItemProps) => {
 						</Box>
 						{/* BUTTON  */}
 						<Button
-							onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
+							onClick={() => handleClick()}
 							sx={{
 								fontWeight: "600",
 								color: "white",
@@ -154,12 +156,12 @@ const Item = (props: IItemProps) => {
 
 			<Box mt="3px">
 				<Typography variant="subtitle2" color={colors.primary[600]}>
-					{category
+					{props.item.category
 						.replace(/([A-Z])/g, "$1")
 						.replace(/^./, (str) => str.toUpperCase())}
 				</Typography>
-				<Typography>{title}</Typography>
-				<Typography fontWeight="bold">${price}</Typography>
+				<Typography>{props.item.name}</Typography>
+				<Typography fontWeight="bold">${props.item.price}</Typography>
 			</Box>
 		</Box>
 	)

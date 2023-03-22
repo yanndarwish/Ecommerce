@@ -8,13 +8,12 @@ import {
 	useMediaQuery,
 } from "@mui/material"
 import Item from "../../components/Item"
-import { useAppSelector } from "../../state/hooks"
+import { products } from "../../data/data"
+import { useParams } from "react-router-dom"
 
-export interface IShoppingListProps {}
-
-const ShoppingList = (props: IShoppingListProps) => {
+const ShoppingList = () => {
+	let { category } = useParams()
 	const [value, setValue] = useState("all")
-	const items = useAppSelector((state) => state.productsSlice.items)
 	const isNonMobile = useMediaQuery("(min-width: 600px)")
 
 	const handleChange = (
@@ -24,31 +23,15 @@ const ShoppingList = (props: IShoppingListProps) => {
 		setValue(newValue)
 	}
 
-	const technology = items.filter(
-		(item) =>
-			item.category === "smartphones" ||
-			item.category === "laptops" ||
-			item.category === "lighting"
-	)
-	const accessories = items.filter(
-		(item) =>
-			item.category === "womens-watches" ||
-			item.category === "mens-watches" ||
-			item.category === "womens-bags" ||
-			item.category === "womens-jewellery" ||
-			item.category === "sunglasses" ||
-			item.category === "fragrances" ||
-			item.category === "skincare"
-	)
-	const home = items.filter(
-		(item) =>
-			item.category === "home-decoration" ||
-			item.category === "furniture" ||
-			item.category === "womens-shoes" ||
-			item.category === "mens-shirts" ||
-			item.category === "mens-shoes"
-	)
+	const technology = products.filter((item) => item.category === "tech")
+	const skincare = products.filter((item) => item.category === "skincare")
+	const home = products.filter((item) => item.category === "home")
 
+	useEffect(() => {
+		if (category) {
+			setValue(category)
+		}
+	}, [category])
 	return (
 		<Box width="80%" margin="80px auto">
 			<Typography variant="h3" textAlign="center">
@@ -71,7 +54,7 @@ const ShoppingList = (props: IShoppingListProps) => {
 				<Tab label="ALL" value="all" />
 				<Tab label="HOME" value="home" />
 				<Tab label="TECH" value="tech" />
-				<Tab label="ACCESSORIES" value="accessories" />
+				<Tab label="SKINCARE" value="skincare" />
 			</Tabs>
 			<Box
 				margin="0 auto"
@@ -82,20 +65,20 @@ const ShoppingList = (props: IShoppingListProps) => {
 				columnGap="1.33%"
 			>
 				{value === "all" &&
-					items.map((item) => (
-						<Item key={`${item.title}-${item.id}`} item={item} />
+					products.map((item) => (
+						<Item key={`${item.name}-${item.id}`} item={item} />
 					))}
 				{value === "tech" &&
 					technology.map((item) => (
-						<Item key={`${item.title}-${item.id}`} item={item} />
+						<Item key={`${item.name}-${item.id}`} item={item} />
 					))}
 				{value === "home" &&
 					home.map((item) => (
-						<Item key={`${item.title}-${item.id}`} item={item} />
+						<Item key={`${item.name}-${item.id}`} item={item} />
 					))}
-				{value === "accessories" &&
-					accessories.map((item) => (
-						<Item key={`${item.title}-${item.id}`} item={item} />
+				{value === "skincare" &&
+					skincare.map((item) => (
+						<Item key={`${item.name}-${item.id}`} item={item} />
 					))}
 			</Box>
 		</Box>

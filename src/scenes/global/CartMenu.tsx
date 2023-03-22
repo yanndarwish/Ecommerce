@@ -13,7 +13,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import styled from "@emotion/styled"
 import { shades } from "../../theme"
 import { useNavigate } from "react-router-dom"
-import { useContext, useRef } from "react"
+import { useRef } from "react"
 import {
 	decreaseCount,
 	increaseCount,
@@ -37,7 +37,7 @@ const CartMenu = () => {
 	const overlayRef = useRef()
 
 	const totalPrice = cart.reduce((total, item) => {
-		return total + item.count * item.price
+		return total + item.count * parseFloat(item.price)
 	}, 0)
 
 	const closeCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -80,62 +80,75 @@ const CartMenu = () => {
 					</FlexBox>
 					{/* CART LIST */}
 					<Box>
-						{cart.map((item) => (
-							<Box key={item.id}>
-								<FlexBox p="15px 0">
-									<Box flex="1 1 40%">
-										<img
-											src={item?.thumbnail}
-											alt={item?.title}
-											width="123px"
-											height="164px"
-											style={{ objectFit: "cover" }}
-										/>
-									</Box>
-									<Box flex="1 1 60%">
-										{/* ITEM NAME */}
-										<FlexBox mb="5px">
-											<Typography fontWeight="bold">{item.title}</Typography>
-											<IconButton
-												onClick={() =>
-													dispatch(removeFromCart({ id: item.id }))
-												}
-											>
-												<CloseIcon />
-											</IconButton>
-										</FlexBox>
-										<Typography>{item.description}</Typography>
-										{/* ITEM QUANTITY */}
-										<FlexBox m="15px 0">
-											<Box
-												display="flex"
-												alignItems="center"
-												border={`1.5px solid ${colors.secondary[500]}`}
-											>
-												<IconButton
-													onClick={() =>
-														dispatch(decreaseCount({ id: item.id }))
-													}
-												>
-													<RemoveIcon />
-												</IconButton>
-												<Typography>{item.count}</Typography>
-												<IconButton
-													onClick={() =>
-														dispatch(increaseCount({ id: item.id }))
-													}
-												>
-													<AddIcon />
-												</IconButton>
-											</Box>
-											{/* PRICE */}
-											<Typography fontWeight="bold">${item.price}</Typography>
-										</FlexBox>
-									</Box>
-								</FlexBox>
-								<Divider />
+						{cart.length === 0 ? (
+							<Box
+								display="flex"
+								justifyContent="center"
+								alignItems="center"
+								height="200px"
+								width="100%"
+							>
+								<Typography variant="h3" fontWeight="bold">
+									Your Cart is Emply
+								</Typography>
 							</Box>
-						))}
+						) : (
+							cart.map((item) => (
+								<Box key={item.id}>
+									<FlexBox p="15px 0">
+										<Box flex="1 1 40%">
+											<img
+												src={item?.images[0]}
+												alt={item?.name}
+												width="123px"
+												height="164px"
+												style={{ objectFit: "cover" }}
+											/>
+										</Box>
+										<Box flex="1 1 60%">
+											{/* ITEM NAME */}
+											<FlexBox mb="5px">
+												<Typography fontWeight="bold">{item.name}</Typography>
+												<IconButton
+													onClick={() =>
+														dispatch(removeFromCart({ id: item.id }))
+													}
+												>
+													<CloseIcon />
+												</IconButton>
+											</FlexBox>
+											{/* ITEM QUANTITY */}
+											<FlexBox m="15px 0">
+												<Box
+													display="flex"
+													alignItems="center"
+													border={`1.5px solid ${colors.secondary[500]}`}
+												>
+													<IconButton
+														onClick={() =>
+															dispatch(decreaseCount({ id: item.id }))
+														}
+													>
+														<RemoveIcon />
+													</IconButton>
+													<Typography>{item.count}</Typography>
+													<IconButton
+														onClick={() =>
+															dispatch(increaseCount({ id: item.id }))
+														}
+													>
+														<AddIcon />
+													</IconButton>
+												</Box>
+												{/* PRICE */}
+												<Typography fontWeight="bold">${item.price}</Typography>
+											</FlexBox>
+										</Box>
+									</FlexBox>
+									<Divider />
+								</Box>
+							))
+						)}
 					</Box>
 					{/* ACTIONS */}
 					<Box m="20px 0">

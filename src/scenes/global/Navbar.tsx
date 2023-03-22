@@ -6,7 +6,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
 import { useNavigate } from "react-router-dom"
 import { ColorModeContext, shades } from "../../theme"
-import { setIsCartOpen } from "../../state/productsSlice"
+import { setIsCartOpen, setIsSideOpen } from "../../state/productsSlice"
 
 const Navbar = () => {
 	const theme = useTheme()
@@ -23,16 +23,15 @@ const Navbar = () => {
 			position="fixed"
 			top="0"
 			left="0"
-			zIndex="1"
+			zIndex="10"
 			display="flex"
 			alignItems="center"
 			width="100%"
 			height="60px"
 			sx={{
-				backgroundColor:
-					theme.palette.mode === "dark" ? colors.primary[800] : "black",
+				backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
+				boxShadow: "0 4px 5px -5px rgba(0,0,0,.23)",
 			}}
-			color="black"
 		>
 			<Box
 				display="flex"
@@ -43,7 +42,7 @@ const Navbar = () => {
 			>
 				<Box
 					onClick={() => navigate("/")}
-					color="white"
+					color={theme.palette.mode === "dark" ? "white" : "black"}
 					sx={{
 						"&:hover": { cursor: "pointer" },
 					}}
@@ -59,7 +58,7 @@ const Navbar = () => {
 					zIndex="2"
 				>
 					<IconButton
-						sx={{ color: "white" }}
+						sx={{ color: theme.palette.mode === "dark" ? "white" : "black" }}
 						onClick={colorMode.toggleColorMode}
 					>
 						{theme.palette.mode === "dark" ? (
@@ -83,13 +82,16 @@ const Navbar = () => {
 						}}
 					>
 						<IconButton
-							sx={{ color: "white" }}
+							sx={{ color: theme.palette.mode === "dark" ? "white" : "black" }}
 							onClick={() => dispatch(setIsCartOpen())}
 						>
 							<ShoppingBagOutlined />
 						</IconButton>
 					</Badge>
-					<IconButton sx={{ color: "white" }}>
+					<IconButton
+						onClick={() => dispatch(setIsSideOpen())}
+						sx={{ color: theme.palette.mode === "dark" ? "white" : "black" }}
+					>
 						<MenuOutlined />
 					</IconButton>
 				</Box>

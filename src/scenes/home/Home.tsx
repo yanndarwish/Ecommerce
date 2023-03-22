@@ -1,14 +1,18 @@
-import MainCarousel from "./MainCarousel"
-import ShoppingList from "./ShoppingList"
+import Ad from "./Ad"
+import Hero from "./Hero"
 import Subscribe from "./Subscribe"
-
+import Trending from "./Trending"
 
 const Home = () => {
-	return (<div>
-        <MainCarousel />
-        <ShoppingList />
-        <Subscribe />
-    </div>)
+	return (
+		<div>
+			<Hero />
+			<Trending />
+			<Ad position="start" />
+			<Ad position="end" />
+			<Subscribe />
+		</div>
+	)
 }
 
 export default Home

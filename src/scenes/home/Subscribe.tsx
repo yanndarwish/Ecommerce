@@ -31,7 +31,7 @@ const Subscribe = () => {
 				display="flex"
 				alignItems="center"
 				width="75%"
-				sx={{ backgroundColor: colors.secondary[800] }}
+				sx={{ backgroundColor: colors.primary[800] }}
 			>
 				<InputBase
 					placeholder="Enter email"
