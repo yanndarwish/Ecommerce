@@ -80,7 +80,7 @@ const Sidebar = () => {
 						>
 							<Link
 								onClick={() => dispatch(setIsSideOpen())}
-								to="/"
+								to="/Ecommerce/"
 								style={{
 									color: theme.palette.mode === "dark" ? "white" : "black",
 									fontSize: "24px",
@@ -89,11 +89,11 @@ const Sidebar = () => {
 							>
 								Home
 							</Link>
-							<Divider sx={{ width:"100%"}}/>
+							<Divider sx={{ width: "100%" }} />
 							<Typography variant="h3">Categories</Typography>
 							<Link
 								onClick={() => dispatch(setIsSideOpen())}
-								to="/products/all"
+								to="/Ecommerce/products/all"
 								style={{
 									color: theme.palette.mode === "dark" ? "white" : "black",
 									fontSize: "24px",
@@ -104,7 +104,7 @@ const Sidebar = () => {
 							</Link>
 							<Link
 								onClick={() => dispatch(setIsSideOpen())}
-								to="/products/skincare"
+								to="/Ecommerce/products/skincare"
 								style={{
 									color: theme.palette.mode === "dark" ? "white" : "black",
 									fontSize: "24px",
@@ -115,7 +115,7 @@ const Sidebar = () => {
 							</Link>
 							<Link
 								onClick={() => dispatch(setIsSideOpen())}
-								to="/products/home"
+								to="/Ecommerce/products/home"
 								style={{
 									color: theme.palette.mode === "dark" ? "white" : "black",
 									fontSize: "24px",
@@ -125,7 +125,7 @@ const Sidebar = () => {
 								Kitchen
 							</Link>
 							<Link
-								to="/products/tech"
+								to="/Ecommerce/products/tech"
 								onClick={() => dispatch(setIsSideOpen())}
 								style={{
 									color: theme.palette.mode === "dark" ? "white" : "black",

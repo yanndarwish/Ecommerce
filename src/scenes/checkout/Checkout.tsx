@@ -153,7 +153,7 @@ const Checkout = () => {
 		// stripe checkout logic
 
         console.log(cart)
-        navigate('/checkout/success')
+        navigate("/Ecommerce/checkout/success")
 	}
 
 	return (

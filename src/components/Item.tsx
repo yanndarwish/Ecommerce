@@ -87,7 +87,7 @@ const Item = (props: IItemProps) => {
 					alt={props.item.name}
 					width="100%"
 					height="250px"
-					onClick={() => navigate(`/item/${props.item.id}`)}
+					onClick={() => navigate(`/Ecommerce/item/${props.item.id}`)}
 					style={{
 						cursor: "pointer",
 						objectFit: "cover",

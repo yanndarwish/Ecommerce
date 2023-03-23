@@ -41,7 +41,7 @@ const Navbar = () => {
 				margin="auto"
 			>
 				<Box
-					onClick={() => navigate("/")}
+					onClick={() => navigate("/Ecommerce")}
 					color={theme.palette.mode === "dark" ? "white" : "black"}
 					sx={{
 						"&:hover": { cursor: "pointer" },

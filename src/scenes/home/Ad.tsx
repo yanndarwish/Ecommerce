@@ -67,7 +67,7 @@ const Ad = (props: IAdProps) => {
 						match them freely.
 					</Typography>
 					<Button
-						onClick={() => navigate("./products/all")}
+						onClick={() => navigate("/Ecommerce/products/all")}
 						variant="contained"
 						fullWidth={false}
 						sx={{ fontWeight: "bold", padding: "10px 40px", mt: "20px" }}

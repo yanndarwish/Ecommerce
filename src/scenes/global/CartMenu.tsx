@@ -172,7 +172,7 @@ const CartMenu = () => {
 								},
 							}}
 							onClick={() => {
-								navigate("/checkout")
+								navigate("/Ecommerce/checkout")
 								dispatch(setIsCartOpen())
 							}}
 						>

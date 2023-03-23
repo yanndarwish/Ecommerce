@@ -30,7 +30,7 @@ const Hero = () => {
 			}}
 		>
 			<Box
-				onClick={() => navigate("/products/home")}
+				onClick={() => navigate("/Ecommerce/products/home")}
 				position="relative"
 				display="flex"
 				alignItems="end"
@@ -76,7 +76,7 @@ const Hero = () => {
 				</Typography>
 			</Box>
 			<Box
-				onClick={() => navigate("/products/skincare")}
+				onClick={() => navigate("/Ecommerce/products/skincare")}
 				position="relative"
 				display="flex"
 				alignItems="end"
@@ -121,7 +121,7 @@ const Hero = () => {
 				</Typography>
 			</Box>
 			<Box
-				onClick={() => navigate("/products/home")}
+				onClick={() => navigate("/Ecommerce/products/home")}
 				position="relative"
 				display="flex"
 				overflow="hidden"
@@ -165,7 +165,7 @@ const Hero = () => {
 				</Typography>
 			</Box>
 			<Box
-				onClick={() => navigate("/products/tech")}
+				onClick={() => navigate("/Ecommerce/products/tech")}
 				position="relative"
 				display="flex"
 				overflow="hidden"
