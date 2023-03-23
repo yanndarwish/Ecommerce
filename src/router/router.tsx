@@ -8,27 +8,27 @@ import ShoppingList from "../scenes/shoppingList/ShoppingList"
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "/Ecommerce",
 		element: <Root />,
 		children: [
 			{
-				path: "/",
+				path: "/Ecommerce",
 				element: <Home />,
 			},
 			{
-				path: "/item/:itemId",
+				path: "/Ecommerce/item/:itemId",
 				element: <ItemDetails />,
 			},
 			{
-				path: "/products/:category",
+				path: "/Ecommerce/products/:category",
 				element: <ShoppingList />,
 			},
 			{
-				path: "/checkout",
+				path: "/Ecommerce/checkout",
 				element: <Checkout />,
 			},
 			{
-				path: "/checkout/success",
+				path: "/Ecommerce/checkout/success",
 				element: <Confirmation />,
 			},
 		],
