@@ -1,19 +1,9 @@
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
-import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import {
 	Box,
 	Typography,
-	Button,
-	useMediaQuery,
-	useTheme,
-	IconButton,
 } from "@mui/material"
-import { shades } from "../../theme"
-import { ArrowLeft } from "@mui/icons-material"
-import { ArrowRight } from "@mui/icons-material"
 import { products } from "../../data/data"
 import Item from "../../components/Item"
-import { useRef, useState } from "react"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 
@@ -40,16 +30,25 @@ const trending = products.slice(0, 5)
 
 const Trending = () => {
 	return (
-		<Box width="80%" margin="30px auto" overflow="hidden" sx={{"& .react-multiple-carousel__arrow": {
-			zIndex: 2
-		}}}>
+		<Box
+			width="80%"
+			margin="30px auto"
+			overflow="hidden"
+			sx={{
+				"& .react-multiple-carousel__arrow": {
+					zIndex: 2,
+				},
+				animation: "appearUp 1s ease-in-out both",
+				animationDelay: "1.1s",
+			}}
+		>
 			<Box display="flex" justifyContent="space-between" mb="30px">
 				<Typography variant="h3" fontWeight="bold">
 					Trending Now
 				</Typography>
 				<Box display="flex" gap="10px"></Box>
 			</Box>
-			<Carousel responsive={responsive} >
+			<Carousel responsive={responsive}>
 				{trending.map((item, i) => (
 					<Item item={item} key={i} />
 				))}

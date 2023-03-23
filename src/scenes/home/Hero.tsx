@@ -38,6 +38,10 @@ const Hero = () => {
 				gridRow="span 2"
 				padding="20px"
 				overflow="hidden"
+				sx={{
+					animation: "appearUp 1s ease-in-out both",
+					animationDelay: "0.3s",
+				}}
 			>
 				<img
 					src={home1}
@@ -79,6 +83,10 @@ const Hero = () => {
 				gridRow="span 2"
 				padding="20px"
 				overflow="hidden"
+				sx={{
+					animation: "appearUp 1s ease-in-out both",
+					animationDelay: "0.5s",
+				}}
 			>
 				<img
 					src={home2}
@@ -119,6 +127,10 @@ const Hero = () => {
 				overflow="hidden"
 				alignItems="end"
 				padding="20px"
+				sx={{
+					animation: "appearUp 1s ease-in-out both",
+					animationDelay: "0.7s",
+				}}
 			>
 				<img
 					src={home3}
@@ -159,6 +171,10 @@ const Hero = () => {
 				overflow="hidden"
 				alignItems="end"
 				padding="20px"
+				sx={{
+					animation: "appearUp 1s ease-in-out both",
+					animationDelay: "0.9s",
+				}}
 			>
 				<img
 					src={home4}

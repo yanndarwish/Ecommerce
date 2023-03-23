@@ -1,4 +1,5 @@
 import { Box, Typography, Button, useMediaQuery, useTheme } from "@mui/material"
+import { useState, useEffect, useRef } from "react"
 import { shades } from "../../theme"
 import { useNavigate } from "react-router-dom"
 import banner1 from "../../assets/images/ad/banner1.jpg"
@@ -9,16 +10,41 @@ export interface IAdProps {
 }
 
 const Ad = (props: IAdProps) => {
+	const ref = useRef<HTMLDivElement | null>(null)
+	const [isVisible, setIsVisible] = useState(false)
 	const navigate = useNavigate()
 	const theme = useTheme()
 	const colors = shades(theme.palette.mode)
 	const isNonMobile = useMediaQuery("(min-width: 600px)")
+
+	useEffect(() => {
+		if (ref.current) {
+			const observer = new IntersectionObserver((entries) => {
+				const entry = entries[0]
+				setIsVisible(entry.isIntersecting)
+			})
+			observer.observe(ref.current)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (ref.current) {
+			if (isVisible) {
+				ref.current.classList.add("appearUp")
+			} else {
+				ref.current.classList.remove("appearUp")
+			}
+		}
+	}, [isVisible])
+
 	return (
 		<Box
+			ref={ref}
 			width="80%"
 			margin="100px auto"
 			display="flex"
 			flexDirection={props.position === "start" ? undefined : "row-reverse"}
+			sx={{ opacity: "0" }}
 		>
 			<Box
 				display="flex"
